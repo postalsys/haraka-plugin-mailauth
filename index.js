@@ -21,8 +21,9 @@ exports.register = function () {
 };
 
 exports.load_config = function () {
-    const cfg = this.config.get('mailauth.yaml', {}, () => this.load_config());
-    this.cfg = Object.assign({}, cfg.main, {});
+    const plugin = this;
+
+    plugin.cfg = plugin.config.get('mailauth.yaml', {}, () => this.load_config());
 };
 
 exports.mailauth_helo = function (next, connection, helo) {
@@ -48,7 +49,7 @@ exports.mailauth_add_result = function (txn, key, domain, result) {
             break;
         case 'permerror':
         case 'temperror':
-            txn.results.add(plugin, { err: resultName });
+            txn.results.add(plugin, { fail: resultName });
             break;
         case 'none':
         default:
@@ -78,7 +79,7 @@ exports.hook_mail = function (next, connection, params) {
         helo: connection.notes.mailauth_helo, // EHLO/HELO hostname
         sender, // MAIL FROM address
         mta: connection.local.host, // MX hostname
-        maxResolveCount: plugin.cfg.dns && plugin.cfg.dns.maxLookups
+        maxResolveCount: plugin.cfg.dns?.maxLookups
     })
         .then(spfResult => {
             txn.notes.mailauth.spf = spfResult;
@@ -157,7 +158,7 @@ async function hookDataPostAsync(stream, plugin, connection) {
             dmarcResult = await dmarc({
                 resolver: plugin.resolver,
                 headerFrom: dkimResult.headerFrom,
-                spfDomains: [].concat((spfResult && spfResult.status.result === 'pass' && spfResult.domain) || []),
+                spfDomains: [].concat((spfResult?.status?.result === 'pass' && spfResult?.domain) || []),
                 dkimDomains: (dkimResult.results || []).filter(r => r.status.result === 'pass').map(r => r.signingDomain),
                 arcResult
             });
