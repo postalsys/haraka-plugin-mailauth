@@ -193,10 +193,6 @@ async function hookDataPostAsync(stream, plugin, connection) {
 
             txn.remove_header('bimi-location');
             txn.remove_header('bimi-indicator');
-
-            if (bimiResult?.status?.result === 'pass' && bimiResult?.location) {
-                txn.add_header('BIMI-Location', bimiResult?.location);
-            }
         } catch (err) {
             txn.notes.mailauth.bimi = { error: err };
             txn.results.add(plugin, { err: 'bimi' });
