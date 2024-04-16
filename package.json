@@ -12,9 +12,18 @@
         "DMARC",
         "ARC",
         "BIMI",
-        "Haraka"
+        "Haraka",
+        "haraka-plugin"
     ],
     "author": "Postal Systems OÜ",
+    "homepage": "https://github.com/postalsys/haraka-plugin-mailauth",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/postalsys/haraka-plugin-mailauth.git"
+    },
+    "bugs": {
+        "url": "https://github.com/postalsys/haraka-plugin-mailauth/issues"
+    },
     "license": "MIT",
     "dependencies": {
         "mailauth": "3.0.2"
