@@ -4,7 +4,8 @@
     "description": "SPF, DKIM, DMARC, ARC, BIMI validator for Haraka",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "update": "rm -rf node_modules package-lock.json && ncu -u && npm install"
     },
     "keywords": [
         "SPF",
@@ -19,17 +20,17 @@
     "homepage": "https://github.com/postalsys/haraka-plugin-mailauth",
     "repository": {
         "type": "git",
-        "url": "git://github.com/postalsys/haraka-plugin-mailauth.git"
+        "url": "git+https://github.com/postalsys/haraka-plugin-mailauth.git"
     },
     "bugs": {
         "url": "https://github.com/postalsys/haraka-plugin-mailauth/issues"
     },
     "license": "MIT",
     "dependencies": {
-        "mailauth": "3.0.2"
+        "mailauth": "4.6.5"
     },
     "devDependencies": {
         "eslint-config-nodemailer": "1.2.0",
-        "eslint-config-prettier": "8.5.0"
+        "eslint-config-prettier": "9.1.0"
     }
 }
