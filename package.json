@@ -30,7 +30,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "mailauth": "4.6.5"
+        "mailauth": "4.7.2"
     },
     "devDependencies": {
         "eslint-config-nodemailer": "1.2.0",
