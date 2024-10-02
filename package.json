@@ -1,11 +1,16 @@
 {
     "name": "haraka-plugin-mailauth",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "SPF, DKIM, DMARC, ARC, BIMI validator for Haraka",
     "main": "index.js",
+    "files": [
+        "config"
+    ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "update": "rm -rf node_modules package-lock.json && ncu -u && npm install"
+        "update": "rm -rf node_modules package-lock.json && ncu -u && npm install",
+        "versions": "npx dependency-version-checker check",
+        "versions:fix": "npx dependency-version-checker update"
     },
     "keywords": [
         "SPF",
@@ -27,7 +32,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "mailauth": "4.6.5"
+        "mailauth": "4.7.2"
     },
     "devDependencies": {
         "eslint-config-nodemailer": "1.2.0",
