@@ -10,20 +10,16 @@ const { dkimVerify } = require('mailauth/lib/dkim/verify');
 const { bimi } = require('mailauth/lib/bimi');
 
 exports.register = function () {
-    const plugin = this;
+    this.load_config();
 
-    plugin.load_config();
+    this.resolver = async (name, rr) => await dns.promises.resolve(name, rr);
 
-    plugin.resolver = async (name, rr) => await dns.promises.resolve(name, rr);
-
-    plugin.register_hook('helo', 'mailauth_helo');
-    plugin.register_hook('ehlo', 'mailauth_helo');
+    this.register_hook('helo', 'mailauth_helo');
+    this.register_hook('ehlo', 'mailauth_helo');
 };
 
 exports.load_config = function () {
-    const plugin = this;
-
-    plugin.cfg = plugin.config.get('mailauth.yaml', {}, () => this.load_config());
+    this.cfg = this.config.get('mailauth.yaml', {}, () => this.load_config());
 };
 
 exports.mailauth_helo = function (next, connection, helo) {
@@ -32,24 +28,22 @@ exports.mailauth_helo = function (next, connection, helo) {
 };
 
 exports.mailauth_add_result = function (txn, key, domain, result) {
-    const plugin = this;
-
     const resultName = `${key}[${domain}]`;
 
     switch (result) {
         case 'pass':
-            txn.results.add(plugin, { pass: resultName });
+            txn.results.add(this, { pass: resultName });
             break;
         case 'fail':
-            txn.results.add(plugin, { fail: resultName });
+            txn.results.add(this, { fail: resultName });
             break;
         case 'neutral':
         case 'policy':
-            txn.results.add(plugin, { skip: resultName });
+            txn.results.add(this, { skip: resultName });
             break;
         case 'permerror':
         case 'temperror':
-            txn.results.add(plugin, { fail: resultName });
+            txn.results.add(this, { fail: resultName });
             break;
         case 'none':
         default:
@@ -75,8 +69,8 @@ exports.hook_mail = function (next, connection, params) {
 
     checkSpf({
         resolver: plugin.resolver,
-        ip: connection.remote_ip, // SMTP client IP
-        helo: connection.notes.mailauth_helo, // EHLO/HELO hostname
+        ip: connection.remote.ip, // SMTP client IP
+        helo: connection.hello.host, // EHLO/HELO hostname
         sender, // MAIL FROM address
         mta: connection.local.host, // MX hostname
         maxResolveCount: plugin.cfg.dns?.maxLookups
