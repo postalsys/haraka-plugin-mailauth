@@ -8,9 +8,7 @@
     ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "update": "rm -rf node_modules package-lock.json && ncu -u && npm install",
-        "versions": "npx dependency-version-checker check",
-        "versions:fix": "npx dependency-version-checker update"
+        "update": "rm -rf node_modules package-lock.json && ncu -u && npm install"
     },
     "keywords": [
         "SPF",
