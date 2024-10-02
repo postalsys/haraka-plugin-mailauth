@@ -69,8 +69,8 @@ exports.hook_mail = function (next, connection, params) {
 
     checkSpf({
         resolver: plugin.resolver,
-        ip: connection.remote_ip, // SMTP client IP
-        helo: connection.notes.mailauth_helo, // EHLO/HELO hostname
+        ip: connection.remote.ip, // SMTP client IP
+        helo: connection.hello.host, // EHLO/HELO hostname
         sender, // MAIL FROM address
         mta: connection.local.host, // MX hostname
         maxResolveCount: plugin.cfg.dns?.maxLookups
