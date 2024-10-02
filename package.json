@@ -1,6 +1,6 @@
 {
     "name": "haraka-plugin-mailauth",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "SPF, DKIM, DMARC, ARC, BIMI validator for Haraka",
     "main": "index.js",
     "files": [
