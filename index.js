@@ -196,7 +196,6 @@ async function hookDataPostAsync(stream, plugin, connection) {
 }
 
 exports.hook_data_post = function (next, connection) {
-    const plugin = this;
 
     const txn = connection?.transaction;
     if (!txn) {
@@ -204,12 +203,12 @@ exports.hook_data_post = function (next, connection) {
     }
 
     const stream = new PassThrough();
-    hookDataPostAsync(stream, plugin, connection)
+    hookDataPostAsync(stream, this, connection)
         .then(() => {
             next();
         })
         .catch(err => {
-            plugin.logerror(err, plugin, connection);
+            this.logerror(err, this, connection);
             next();
         });
 
