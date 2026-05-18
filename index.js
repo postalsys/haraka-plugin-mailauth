@@ -62,7 +62,7 @@ exports.hook_mail = function (next, connection, params) {
 
     // Step 1. SPF
 
-    const sender = params[0].address();
+    const sender = params[0].address;
     txn.notes.mailauth = {
         sender
     };
