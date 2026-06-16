@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Bug Fixes
+
+* **hook_data_post:** guard against missing `txn.notes.mailauth` when `hook_mail` was not called
+
 ## [1.1.1](https://github.com/postalsys/haraka-plugin-mailauth/compare/v1.1.0...v1.1.1) (2024-10-02)
 
 
