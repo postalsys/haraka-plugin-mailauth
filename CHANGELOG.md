@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+### Bug Fixes
+
+* **hook_mail:** call `params[0].address` as a property instead of a method
+* **hook_data_post:** guard against missing `txn.notes.mailauth` when `hook_mail` was not called
+
+## [1.2.0](https://github.com/haraka/haraka-plugin-mailauth/compare/v1.1.1...v1.2.0) (2024-10-02)
+
+### Features
+
+* **autopublish:** Use release-please to publish packages to npm from now on ([77bf575](https://github.com/haraka/haraka-plugin-mailauth/commit/77bf575a32dbb35d6a4cdf4938838ea1aa7d3d3a))
+
+
 ## [1.1.1](https://github.com/postalsys/haraka-plugin-mailauth/compare/v1.1.0...v1.1.1) (2024-10-02)
 
 
